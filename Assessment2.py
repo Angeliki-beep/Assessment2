@@ -4,7 +4,7 @@ from collections import deque
 import heapq
 
 # Graph and Station Data Classes
-# -------------------------------
+
 class Station:
     def __init__(self, name, line):
         self.name = name
@@ -15,8 +15,8 @@ class Station:
 
 class Graph:
     def __init__(self):
-        self.nodes = {} 
-        self.edges = {}  
+        self.nodes = {} # id station
+        self.edges = {} # id neighboor_id,time
 
     def add_station(self, station):
         self.nodes[station.id()] = station
@@ -41,6 +41,7 @@ def build_graph(csv_path):
         graph.add_station(station)
 
     # Connect stations on the same line in order of appearance
+    
     for line, group in df.groupby("Line"):
         stations = group.sort_values("Station").reset_index()
         for i in range(len(stations) - 1):
@@ -50,6 +51,7 @@ def build_graph(csv_path):
             graph.add_connection(a, b, time)
 
     # Add 5-minute transfers at interchange stations
+    
     for station_name, group in df.groupby("Station"):
         lines = list(group["Line"])
         for i in range(len(lines)):
