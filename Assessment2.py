@@ -1,4 +1,4 @@
-import pandas as pd # type: ignore
+import pandas as pd 
 import random
 from collections import deque
 import heapq
